@@ -136,3 +136,4 @@ let sound_die = new Audio('sounds effect/gameover.wav');
 }
  
 
+
