@@ -135,3 +135,4 @@ let sound_die = new Audio('sounds effect/gameover.wav');
     requestAnimationFrame(create_pipe);
 }
  
+
