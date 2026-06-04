@@ -3,62 +3,69 @@ let bird = document.querySelector('.bird');
 let img = document.getElementById('bird-1');
 let sound_point = new Audio('sounds effect/point.mp3');
 let sound_die = new Audio('sounds effect/gameover.wav');
+
+let music_bg = new Audio('sounds effect/lagu.wav');
+music_bg.loop = true;
+music_bg.volume = 0.5;
  
- // mengambil properti element burung
- let bird_props = bird.getBoundingClientRect();
+// mengambil properti element burung
+let bird_props = bird.getBoundingClientRect();
  
- // bagian ini memeberikan nilai returns DOMReact -> top, right, bottom, left, x, y, width and height
- let background = document.querySelector('.background').getBoundingClientRect();
+// bagian ini memeberikan nilai returns DOMReact -> top, right, bottom, left, x, y, width and height
+let background = document.querySelector('.background').getBoundingClientRect();
  
- let score_val = document.querySelector('.score_val');
- let message = document.querySelector('.message');
- let score_title = document.querySelector('.score_title');
+let score_val = document.querySelector('.score_val');
+let message = document.querySelector('.message');
+let score_title = document.querySelector('.score_title');
  
- let game_state = 'Start';
- img.style.display = 'none';
- message.classList.add('messageStyle');
+let game_state = 'Start';
+img.style.display = 'none';
+message.classList.add('messageStyle');
  
- // bagian ini dijalankan saat menekan tombol enter dan keadaan game Play
- document.addEventListener('keydown', (e) => {
+// bagian ini dijalankan saat menekan tombol enter dan keadaan game Play
+document.addEventListener('keydown', (e) => {
  
-     if(e.key == 'Enter' && game_state != 'Play'){
-          document.querySelectorAll('.pipe_sprite').forEach((e) => {
-              e.remove();
-          });
-          img.style.display = 'block';
-          bird.style.top = '40vh';
-          game_state = 'Play'; // menampilkan teks play
-          message.innerHTML = ''; // menampilkan pesan
-          score_title.innerHTML = 'Skor : '; // menampilkan skor
-          score_val.innerHTML = '0'; // menampilkan skor awal 0
-          message.classList.remove('messageStyle');
-          play();
+    if(e.key == 'Enter' && game_state != 'Play'){
+        music_bg.currentTime = 0;
+        music_bg.play();
+
+        document.querySelectorAll('.pipe_sprite').forEach((e) => {
+            e.remove();
+        });
+        img.style.display = 'block';
+        bird.style.top = '40vh';
+        game_state = 'Play'; // menampilkan teks play
+        message.innerHTML = ''; // menampilkan pesan
+        score_title.innerHTML = 'Skor : '; // menampilkan skor
+        score_val.innerHTML = '0'; // menampilkan skor awal 0
+        message.classList.remove('messageStyle');
+        play();
     }
 });
 
 // bagian ini yang menjalankan game
- function play(){
-     function move(){
-         if(game_state != 'Play') return;
+function play(){
+    function move(){
+        if(game_state != 'Play') return;
  
-         let pipe_sprite = document.querySelectorAll('.pipe_sprite');
-         pipe_sprite.forEach((element) => {
-             let pipe_sprite_props = element.getBoundingClientRect();
-             bird_props = bird.getBoundingClientRect();
+        let pipe_sprite = document.querySelectorAll('.pipe_sprite');
+        pipe_sprite.forEach((element) => {
+            let pipe_sprite_props = element.getBoundingClientRect();
+            bird_props = bird.getBoundingClientRect();
  
-             if(pipe_sprite_props.right <= 0){
-                 element.remove();
-             }else{
-                 if(bird_props.left < pipe_sprite_props.left + pipe_sprite_props.width &&
-                 bird_props.left + bird_props.width > pipe_sprite_props.left && bird_props
-                 .top < pipe_sprite_props.top + pipe_sprite_props.height && bird_props.top
-                  + bird_props.height > pipe_sprite_props.top){
-                     game_state = 'End';
-                     message.innerHTML = 'Game Over .. '.fontcolor('red') + '<br>Klik Enter untuk memulai kembali';
-                     message.classList.add('messageStyle');
-                     img.style.display = 'none';
-                     sound_die.play();
-                     return;
+            if(pipe_sprite_props.right <= 0){
+                element.remove();
+            }else{
+                if(bird_props.left < pipe_sprite_props.left + pipe_sprite_props.width &&
+                bird_props.left + bird_props.width > pipe_sprite_props.left && bird_props
+                .top < pipe_sprite_props.top + pipe_sprite_props.height && bird_props.top
+                + bird_props.height > pipe_sprite_props.top){
+                    game_state = 'End';
+                    message.innerHTML = 'Game Over .. '.fontcolor('red') + '<br>Klik Enter untuk memulai kembali';
+                    message.classList.add('messageStyle');
+                    img.style.display = 'none';
+                    sound_die.play();
+                    return;
                 }else{
                     if(pipe_sprite_props.right < bird_props.left && pipe_sprite_props.
                     right + move_speed >= bird_props.left && element.increase_score ==
@@ -134,6 +141,3 @@ let sound_die = new Audio('sounds effect/gameover.wav');
     }
     requestAnimationFrame(create_pipe);
 }
- 
-
-
