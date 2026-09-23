@@ -1,23 +1,73 @@
 <!DOCTYPE html>
- <html lang="en">
- <head>
-     <meta charset="UTF-8">
-     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>Flappy Bird Game</title>
-     <link rel="stylesheet" href="style.css">
-     <script src="script.js" defer></script>
- </head>
- <body>
-     <div class="background"></div>
-     <img src="images/bird.png" alt="bird-img" class="bird" id="bird-1">
-     <div class="message">
-          Tekan Enter untuk memulai <p>Spasi atau panah (<span style="color: red;">&uarr;
-          </span>) ke atas untuk menghindari pipa</p>
-     </div>
-     <div class="score">
-         <span class="score_title"></span>
-         <span class="score_val"></span>
-     </div>
- </body>
- </html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Flappy Bird — Reborn</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="game" id="game">
+
+    <div class="background" id="background"></div>
+    <div class="ground" id="ground"></div>
+
+    <div class="pipes-layer" id="pipes-layer"></div>
+
+    <img src="images/bird.png" alt="bird" class="bird" id="bird" />
+
+    <!-- HUD -->
+    <div class="hud">
+      <div class="score" id="score">0</div>
+      <div class="best" id="best-hud">Terbaik: <span id="best-value">0</span></div>
+    </div>
+
+    <button class="icon-btn mute-btn" id="mute-btn" title="Bisukan suara" aria-label="Bisukan suara">🔊</button>
+    <button class="icon-btn pause-btn" id="pause-btn" title="Jeda" aria-label="Jeda">⏸</button>
+
+    <!-- Start screen -->
+    <div class="overlay" id="start-screen">
+      <div class="panel">
+        <h1>Flappy Bird</h1>
+        <p class="hint">
+          Tekan <kbd>Spasi</kbd>, <kbd>&uarr;</kbd> atau <b>ketuk layar</b> untuk terbang
+        </p>
+        <button class="primary-btn" id="start-btn">Mulai Main</button>
+        <p class="hint small">Tekan <kbd>Enter</kbd> untuk mulai cepat</p>
+      </div>
+    </div>
+
+    <!-- Pause screen -->
+    <div class="overlay hidden" id="pause-screen">
+      <div class="panel">
+        <h2>Jeda</h2>
+        <button class="primary-btn" id="resume-btn">Lanjutkan</button>
+      </div>
+    </div>
+
+    <!-- Game over screen -->
+    <div class="overlay hidden" id="gameover-screen">
+      <div class="panel">
+        <h2>Game Over</h2>
+        <div class="result-row">
+          <div>
+            <span class="label">Skor</span>
+            <span class="value" id="final-score">0</span>
+          </div>
+          <div>
+            <span class="label">Terbaik</span>
+            <span class="value" id="final-best">0</span>
+          </div>
+        </div>
+        <p class="new-best hidden" id="new-best-msg">🏆 Rekor baru!</p>
+        <button class="primary-btn" id="restart-btn">Main Lagi</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
